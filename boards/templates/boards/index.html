@@ -1,11 +1,9 @@
-{% extends 'boards/base.html' %}
-{% block body %}
+{% extends 'boards/base.html' %} {% block body %}
 <h1>게시글 목록</h1>
-<a href="{% url 'boards:create' %}">새 글 작성</a>
-{% for board in boards %}
+{% if user.is_authenticated %}
+<a href="{% url 'boards:create' %}">새 글 작성</a> {% else %}
+<a href="{% url 'accounts:login' %}">새 글을 작성하려면 로그인 하세요.</a> {% endif %} {% for board in boards %}
 <p>{{ board.pk }}</p>
 <p>{{ board.title }}</p>
 <a href="{% url 'boards:detail' board.pk %}">글 보러가기</a>
-<hr>
-{% endfor %}
-{% endblock %}
+<hr> {% endfor %} {% endblock %}
